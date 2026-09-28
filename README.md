@@ -20,9 +20,9 @@ Se eliminaron todos los prefijos técnicos crudos y las abreviaciones confusas d
 
 ### B. Corrección de Tipos de Datos
 Se asignaron tipificaciones estrictas en las cabeceras de las columnas según su naturaleza matemática:
-*   **Fechas (`Fecha_venta` y `Fecha_alta_cliente`):** Se transformaron de texto largo (DateTime de sistema) a tipo **Fecha (Date)**. Esto eliminó las horas residuales en cero (`00:00:00.000`) y es un paso mandatorio para habilitar las funciones DAX de Inteligencia de Tiempo (*Time Intelligence*).
-*   **Montos Económicos (`Precio_unitario` y `Total_venta`):** Se configuraron como **Número decimal fijo (Currency)**. Esto mitiga el riesgo de errores de redondeo de punto flotante al realizar sumas acumulativas o promedios sobre millones de transacciones.
-*   **Identificadores (`Codigo_operacion` e `ID_cliente`):** Se configuraron como **Texto (Text)**. Aunque contienen números, los IDs actúan como variables categóricas sobre las cuales jamás se realizarán operaciones aritméticas. Tratarlos como texto optimiza el indexado de las relaciones en Power BI.
+*   **Fechas (`Fecha_venta` y `Fecha_alta_cliente`):** Se transformaron de texto largo (DateTime de sistema) a tipo **Fecha (Date)**. Esto eliminó las horas residuales en cero (`00:00:00.000`).
+*   **Montos Económicos (`Precio_unitario` y `Total_venta`):** Se configuraron como **Número decimal fijo**. Esto mitiga el riesgo de errores de redondeo de punto flotante al realizar sumas acumulativas o promedios sobre millones de transacciones.
+*   **Identificadores (`Codigo_operacion` e `ID_cliente`):** Se configuraron como **Texto**. Aunque contienen números, los IDs actúan como variables categóricas sobre las cuales jamás se realizarán operaciones aritméticas. Tratarlos como texto optimiza el indexado de las relaciones en Power BI.
 *   **Métricas de Control (`Cantidad` y `Descuento_porcentaje`):** Se asignó **Número entero** a las cantidades (debido a la granularidad unitaria del negocio) y **Número decimal** a los descuentos para interpretar correctamente valores como `0.05` (5%).
 
 ### C. Tratamiento de Valores Nulos (`null`)
