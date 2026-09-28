@@ -32,3 +32,6 @@ Al activar las barras de calidad de datos, se detectó que el 5% inferior del ar
 Se aplicó la limpieza de registros repetidos utilizando un criterio diferenciado según la tabla:
 *   En **`dim_clientes`**, se removieron duplicados sobre la columna `ID_cliente` para garantizar que cada comprador aparezca una única vez en la lista maestra.
 *   En **`fact_ventas`**, se removieron duplicados únicamente sobre la columna `Codigo_operacion` para asegurar la unicidad de las facturas, permitiendo intencionalmente que los IDs de clientes se repitan, reflejando así la recurrencia real de compra de los usuarios.
+
+## 4. Resolución de Conflictos de Integridad Referencial (Caché del Motor)
+Durante el despliegue final del modelo en la interfaz de relaciones, el sistema arrojó una advertencia de restricción debido a la presencia de un registro con valor en blanco (`blank / null`) residual dentro de la columna clave primaria `ID_cliente` en la tabla `dim_clientes`. Esta colisión de integridad referencial impedía la asignación de una cardinalidad pura. Para solucionarlo de raíz, se regresó al Editor de Power Query y se aplicó un filtro estricto de exclusión de vacíos en dicha columna maestro. Esta purga definitiva eliminó la celda huérfana, destrabando el sistema y permitiendo consolidar con éxito la relación Uno a Varios (1:*) requerida para el modelo en estrella.
